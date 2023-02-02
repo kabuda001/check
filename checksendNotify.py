@@ -8,11 +8,10 @@ import os
 import re
 import threading
 import time
-import traceback
 import urllib.parse
 
 import requests
-import tomli
+
 
 # 原先的 print 函数和主线程的锁
 _print = print

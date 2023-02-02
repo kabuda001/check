@@ -178,7 +178,3 @@ export MI_PUSH_ALIAS="********"
 [@Oreomeow](https://github.com/Oreomeow)
 
 
-## Stargazers over time
-
-[![Stargazers over time](https://starchart.cc/yuxian158/check.svg)](https://starchart.cc/yuxian158/check)
-

@@ -23,24 +23,6 @@ except ModuleNotFoundError:
 from checksendNotify import send
 
 
-# def toml_to_json(toml_path, to_json_path):
-#     """
-#     :param toml_path: 需要转换的toml文件的路径
-#     :param to_json_path: 需要输出的json文件路径
-#     :return: None
-#     """
-#     with open(toml_path, "rb") as f:
-#         toml_dict = tomli.load(f)
-#         json_date = json.dumps(toml_dict, indent=4, ensure_ascii=False)
-#         with open(to_json_path, 'w', encoding="utf8") as s:
-#             s.write(json_date)
-
-
-# def json_to_toml(json_path, to_toml_path):
-#     with open(json_path, "r", encoding="utf8") as f:
-#         json_dict = json.load(f)
-#         with open(to_toml_path, "wb") as f:
-#             tomli_w.dump(json_dict, f)
 
 class config_get(object):
     def __init__(self, custom_path=None):
@@ -129,12 +111,12 @@ class config_get(object):
     @staticmethod
     def move_configuration_file_old():
         print("移动配置文件")
-        os.system("cp /ql/repo/yuxian158_check/check.sample.toml /ql/config/check.toml")
+        os.system("cp /ql/repo/kabuda001_check/check.sample.toml /ql/config/check.toml")
 
     @staticmethod
     def move_configuration_file_new():
         print("移动配置文件")
-        os.system("cp /ql/data/repo/yuxian158_check/check.sample.toml /ql/data/config/check.toml")
+        os.system("cp /ql/data/repo/kabuda001_check/check.sample.toml /ql/data/config/check.toml")
 
     @staticmethod
     def get_value_for_toml(toml_path, key):
@@ -236,64 +218,7 @@ class check(object):
         return wrapper
 
 
-def change_cron_new(cron_file_path="/ql/data/db/database.sqlite", repositories="yuxian158_check"):
-    print("尝试修改定时时间")
-    os.system(f"cp {cron_file_path} {cron_file_path}.back")
-    con = sqlite3.connect(cron_file_path)
-    cur = con.cursor()
-
-    def change_time(time_str: str):
-        words = re.sub("\\s+", " ", time_str).split()
-        words[0] = str(random.randrange(60))
-        words[1] = str(random.randrange(22))
-        return " ".join(words)
-
-    cur.execute("select id,name,command,schedule from Crontabs")
-    res = cur.fetchall()
-    for line in res:
-        if line[2].find(repositories) != -1:
-            sql = f" UPDATE Crontabs SET schedule = \"{change_time(line[3])}\" WHERE id = {line[0]}"
-            print(f"任务名称 {line[1]} 修改为{sql}")
-            cur.execute(sql)
-
-    con.commit()
-    con.close()
-
-
-def change_cron_old(cron_file_path="/ql/db/crontab.db", repositories="yuxian158_check"):
-    print("尝试修改定时时间")
-
-    def change_time(time_str: str):
-        words = re.sub("\\s+", " ", time_str).split()
-        words[0] = str(random.randrange(60))
-        words[1] = str(random.randrange(22))
-        return " ".join(words)
-
-    time_str = time.strftime("%Y-%m-%d", time.localtime())
-    os.system(f"cp /ql/db/crontab.db /ql/db/crontab.db.{time_str}.back")
-    lines = []
-    with open(cron_file_path, "r", encoding="UTF-8") as f:
-        for i in f.readlines():
-            # print(record.get("command"))
-            if i.find(repositories) != -1:
-                record = json.loads(i)
-                record["schedule"] = change_time(record["schedule"])
-                lines.append(json.dumps(record, ensure_ascii=False) + "\n")
-            else:
-                lines.append(i)
-
-    with open(cron_file_path, "w", encoding="UTF-8") as f:
-        f.writelines(lines)
-
 
 if __name__ == "__main__":
     pip_install()
-    config = config_get()
-    if config.config_path == "/ql/config/":
-        if os.path.isfile("/ql/db/database.sqlite"):
-            change_cron_new(cron_file_path="/ql/db/database.sqlite")
-        else:
-            change_cron_old()
-    else:
-        change_cron_new()
-        print("修改完成请重启容器")
+
