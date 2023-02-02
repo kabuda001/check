@@ -111,12 +111,12 @@ class config_get(object):
     @staticmethod
     def move_configuration_file_old():
         print("移动配置文件")
-        os.system("cp /ql/repo/kabuda001_check/check.sample.toml /ql/config/check.toml")
+        os.system("cp /ql/repo/kabuda001_check_master/check.sample.toml /ql/config/check.toml")
 
     @staticmethod
     def move_configuration_file_new():
         print("移动配置文件")
-        os.system("cp /ql/data/repo/kabuda001_check/check.sample.toml /ql/data/config/check.toml")
+        os.system("cp /ql/data/repo/kabuda001_check_master/check.sample.toml /ql/data/config/check.toml")
 
     @staticmethod
     def get_value_for_toml(toml_path, key):
