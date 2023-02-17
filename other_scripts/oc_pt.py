@@ -11,6 +11,12 @@ cron: 20 8 * * *
 new Env('PT站自动签到');
 """
 
+import sys
+import os
+
+parantPath = os.path.abspath(os.path.join(os.getcwd(), "../"))
+sys.path.append(parantPath)
+
 from utils import check
 import requests
 import datetime
