@@ -37,7 +37,7 @@ class PT:
                 'referer': referer,
                 'cookie': cookie
             }
-            response = requests.get(url, headers=headers)
+            response = requests.get(url, headers=headers, timeout=10)
             now = datetime.datetime.now()
             time = '[' + now.strftime("%Y-%m-%d %H:%M:%S") + ']'
             if response.status_code == 200:
