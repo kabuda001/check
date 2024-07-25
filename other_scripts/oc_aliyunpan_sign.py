@@ -27,7 +27,7 @@ class ALiYunPan:
     def __init__(self, check_items):
         self.check_items = check_items
 
-    def get_access_token(refresh_token):
+    def get_access_token(self, refresh_token):
         access_token = ''
         try:
             url = "https://auth.aliyundrive.com/v2/account/token"
