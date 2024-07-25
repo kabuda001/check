@@ -93,13 +93,14 @@ class ALiYunPan:
         return {'name': 'null', 'description': 'null'}
 
     @staticmethod
-    def sign_in(access_token):
+    def sign_in(self, refresh_token):
         now = datetime.datetime.now()
         time = '[' + now.strftime("%Y-%m-%d %H:%M:%S") + ']'
         sign_in_days_lists = []
         not_sign_in_days_lists = []
 
         try:
+            access_token = self.get_access_token(refresh_token)
             url = 'https://member.aliyundrive.com/v1/activity/sign_in_list'
             headers = {
                 "Content-Type": "application/json",
@@ -178,8 +179,7 @@ class ALiYunPan:
     def main(self):
         msg_all = ""
         refresh_token = str(self.check_items.get("refresh_token"))
-        access_token = self.get_access_token(refresh_token)
-        msg = self.sign_in(access_token)
+        msg = self.sign_in(self, refresh_token)
         msg_all += msg
         return msg_all
 
