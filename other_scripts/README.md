@@ -1,6 +1,3 @@
 ## 参数说明
 
-|         Name          |    归属    | 属性 | 说明                                  |
-| :-------------------: | :--------: | :--: | :------------------------------------ |
-| GAME163.authorization | [网易云游戏](https://cg.163.com/#/pc) | Web  | 网易云游戏网站请求头authorization字段 |
-
+阿里云盘token获取：请在阿里云盘网页端获取：JSON.parse(localStorage.getItem("token")).refresh_token
